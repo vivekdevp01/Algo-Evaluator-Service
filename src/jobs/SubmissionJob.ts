@@ -1,8 +1,9 @@
+// import runJava from "../containers/runJavaDocker";
 import { Job } from "bullmq";
-
-import runJava from "../containers/runJavaDocker";
 import { IJob } from "../types/bullMqJobDefinition";
 import { SubmissionPayload } from "../types/submissionPayload";
+import { executionResponse } from "../types/CodeEvaluatorStrategy";
+import createExectutor from "../utils/ExecutorFactory";
 
 export default class SubmissionJob implements IJob {
   name: string;
@@ -17,13 +18,20 @@ export default class SubmissionJob implements IJob {
     console.log(this.payload);
     if (job) {
       const key = Object.keys(this.payload)[0];
-      console.log(this.payload[key].language);
-      if (this.payload[key].language === "JAVA") {
-        const response = await runJava(
-          this.payload[key].code,
-          this.payload[key].inputCase
+      const codeLanguage = this.payload[key].language;
+      const code = this.payload[key].code;
+      const inputCase = this.payload[key].inputCase;
+      const strategy = createExectutor(codeLanguage);
+      if (strategy != null) {
+        const response: executionResponse = await strategy.execute(
+          code,
+          inputCase
         );
-        console.log("evaulated response", response);
+        if (response.status === "COMPLETED") {
+          console.log("code executed successfully", response);
+        } else {
+          console.log("error executing code", response);
+        }
       }
     }
   };
