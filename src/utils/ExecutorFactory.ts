@@ -5,9 +5,9 @@ import CodeEvaluatorStrategy from "../types/CodeEvaluatorStrategy";
 export default function createExectutor(
   codeLanguage: string
 ): CodeEvaluatorStrategy | null {
-  if (codeLanguage === "JAVA") {
+  if (codeLanguage.toLowerCase() === "java") {
     return new javaExecutor();
-  } else if (codeLanguage === "PYTHON") {
+  } else if (codeLanguage.toLowerCase() === "python") {
     return new PythonExecutor();
   } else {
     return null;

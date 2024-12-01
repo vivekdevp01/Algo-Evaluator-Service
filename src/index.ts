@@ -3,7 +3,7 @@ import express, { Express } from "express";
 
 import bullBoardAdapter from "./config/bullBoardConfig";
 import serverConfig from "./config/serverConfig";
-import submissionQueueProducer from "./producers/submissionQueueProducer";
+// import submissionQueueProducer from "./producers/submissionQueueProducer";
 import apiRouter from "./routes";
 import { submission_queue } from "./utils/constants";
 import SampleWorker from "./workers/SampleWorker";
@@ -33,23 +33,23 @@ app.listen(serverConfig.PORT, () => {
   // print("value of a is", x)
   // print("value of b is", y)
   // `;
-  const userCode = `
-    class Solution{
-     public int num(){
-       return 20;
-     }
-    }
-  `;
-  const code = `
-  import java.util.*;
-  ${userCode}
-  public class Main{
-    public static void main(String[] args){
-      Solution obj = new Solution();
-      System.out.println(obj.num());
-    }
-  }
-  `;
+  // const userCode = `
+  //   class Solution{
+  //    public int num(){
+  //      return 20;
+  //    }
+  //   }
+  // `;
+  // const code = `
+  // import java.util.*;
+  // ${userCode}
+  // public class Main{
+  //   public static void main(String[] args){
+  //     Solution obj = new Solution();
+  //     System.out.println(obj.num());
+  //   }
+  // }
+  // `;
 
   // const code = `
   // #include <iostream>
@@ -82,17 +82,17 @@ app.listen(serverConfig.PORT, () => {
   //     return 0;
   //    }
   // `;
-  const inputCase = `10
-  `;
+  // const inputCase = `10
+  // `;
   // runCpp(code, inputCase);
 
   // runPython(code, inputCase);
   // runJava(code, inputCase);
-  submissionQueueProducer({
-    "1234": {
-      language: "JAVA",
-      inputCase,
-      code,
-    },
-  });
+  // submissionQueueProducer({
+  //   "1234": {
+  //     language: "JAVA",
+  //     inputCase,
+  //     code,
+  //   },
+  // });
 });

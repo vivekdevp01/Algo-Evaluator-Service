@@ -9,8 +9,10 @@ import pullImage from "./pullImage";
 class javaExecutor implements CodeEvaluatorStrategy {
   async execute(
     code: string,
-    inputTestCase: string
+    inputTestCase: string,
+    outputCase: string
   ): Promise<executionResponse> {
+    console.log(code, inputTestCase, outputCase);
     const rawLogBuffer: Buffer[] = [];
 
     console.log("Initialising a new python docker container");
